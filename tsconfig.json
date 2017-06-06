@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "lib/*": ["lib/*"],
+      "lambda/*": ["lambda/*"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

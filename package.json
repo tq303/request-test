@@ -1,0 +1,30 @@
+{
+  "name": "request-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers ts:ts-node/register -r tsconfig-paths/register test/*.ts"
+  },
+  "author": "oliver white",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.0.0",
+    "@types/mocha": "^2.2.41",
+    "@types/request-promise-native": "^1.0.5",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "serverless-webpack": "^1.0.0-rc.4",
+    "source-map-support": "^0.4.15",
+    "ts-loader": "^2.1.0",
+    "ts-node": "^3.0.4",
+    "tsconfig-paths": "^2.2.0",
+    "typescript": "^2.3.4",
+    "webpack": "^2.6.1"
+  },
+  "dependencies": {
+    "http-status-codes": "^1.1.6",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
+  }
+}

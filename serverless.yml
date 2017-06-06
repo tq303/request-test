@@ -1,0 +1,17 @@
+service: api-gateway
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+plugins:
+  - serverless-webpack
+
+functions:
+  request:
+    handler: handler.request
+    events:
+      - http:
+          path: request
+          method: get
+          cors: true
