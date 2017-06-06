@@ -2,6 +2,8 @@ import * as request from 'request-promise-native';
 
 import randomCoordinates from 'lib/random-coordinates';
 
+import SunriseInterface from './interface';
+
 export default class RequestClass {
 
   batchSize: number = 5
@@ -35,7 +37,7 @@ export default class RequestClass {
 
   }
 
-  returnFormat<T>(r: T): T {
+  returnFormat(r: SunriseInterface): string {
     return r.results.sunrise;
   }
 
