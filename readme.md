@@ -14,9 +14,13 @@ npm install -g serverless webpack ts-node typescript
 npm install
 ```
 
+## Serverless
+
+I have included a [serverless]() lambda stack example to show how typescript can be useful for creating lambda functions. However due to the purpose of the test needing delayed requests, lambdas aren't really ideal for this, unless using persistance of some kind.
+
 ## Webpack
 
-Webpack is used to bundle the typescript and reduce deployment size for serverless. The `lib` folder is referenced as an alias.
+Webpack is used to bundle the typescript and reduce deployment size for serverless.
 
 ## IAM
 

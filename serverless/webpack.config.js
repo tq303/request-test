@@ -5,10 +5,6 @@ module.exports = {
   target: 'node',
   resolve: {
     extensions: ['.ts', '.js', '']
-    alias:{
-      'lib/*': path.join(__dirname, 'lib/*'),
-      'lambda/*': path.join(__dirname, 'lambda/*'),
-    }    
   },
   devtool: 'source-map',
   module: {

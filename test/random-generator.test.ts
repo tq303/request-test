@@ -3,24 +3,26 @@ import { expect } from 'chai';
 
 import randomCoordinates from 'lib/random-coordinates';
 
+const rc = new randomCoordinates();
+
 describe('Random Cooridnates', () => {
 
   it('Should return an array', () => {
 
-    expect(randomCoordinates()).to.be.an('array');
+    expect(rc.coords).to.be.an('array');
 
   });
 
   it('Should return 100 element array', () => {
 
-    expect(randomCoordinates().length).to.equal(100);
+    expect(rc.coords.length).to.equal(100);
 
   });
 
   it('Array objects should be floating point numbers', () => {
 
-    expect(randomCoordinates()[0].lat).to.be.a('number');
-    expect(randomCoordinates()[0].lng).to.be.a('number');
+    expect(rc.coords[0].lat).to.be.a('number');
+    expect(rc.coords[0].lng).to.be.a('number');
 
   });
 

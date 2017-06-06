@@ -6,4 +6,12 @@ interface SunriseResultsInterface {
   sunrise: string
 }
 
-export default SunriseInterface;
+interface LatLong {
+  lat: number
+  lng: number
+}
+
+export {
+  SunriseInterface,
+  LatLong,
+};
