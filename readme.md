@@ -16,7 +16,9 @@ npm install
 
 ## Serverless
 
-I have included a [serverless]() lambda stack example to show how typescript can be useful for creating lambda functions. However due to the purpose of the test needing delayed requests, lambdas aren't really ideal for this, unless using persistance of some kind.
+I have included a [serverless]() lambda stack example to show how typescript can be useful for creating lambda functions. However due to the purpose of the test needing delayed requests, lambdas aren't really ideal for this, unless using persistance of some kind. Setting this up wouldn't be too difficult either but I have given an example of a batch request of 5 to demonstrate how _interfaces_ are useful for the lambda parameters.
+
+To run the example lambda simple run `sls webpack invoke -f request` to see an example of what the API Gateway would return in the http body response.
 
 ## Webpack
 
