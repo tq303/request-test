@@ -31,3 +31,8 @@ I used serverless to demonstrate how to deploy lambda really easily with api gat
 ```
 npm test
 ```
+
+## TODO
+
+Complete generics for return format function
+Create additional example of class extension using generics
