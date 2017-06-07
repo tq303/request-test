@@ -47,12 +47,12 @@ const EarliestSurniseDayLength: RequestFormat = {
 /*
  * As wind speeds can diminish after sunset, find the longest day_length in a range of lat lng
  */
-const LongestDayLengthInRange = (results) => results.sort((a, b) => {
+const LongestDayInRangeFn = (results) => results.sort((a, b) => {
   return moment(a).valueOf() - moment(b).valueOf();
 }).map(r => r.results.day_length)[0];
 
 const LongestDayInRange: RequestFormat = {
-  sortResponse: LongestDayLengthInRange
+  sortResponse: LongestDayInRangeFn
 };
 
 export {
