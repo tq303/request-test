@@ -6,8 +6,9 @@ import { RequestFormat, LatLong } from 'lib/interfaces';
 import * as moment from 'moment';
 
 const SunriseFormat: RequestFormat = {
-  format: (r) => r.results.sunrise,
-  postFormat: (results) => results.sort((a, b) => moment(a).utc().isBefore(moment.utc(b)))
+  postFormat: (results) => results.sort((a, b) => {
+    return moment(a.results.sunrise, 'hh:mm:ss A').valueOf() - moment(b.results.sunrise, 'hh:mm:ss A').valueOf();
+  }).map(r => r.results.daylength)[0]
 };
 
 const rc = new requestClass(SunriseFormat);
@@ -27,8 +28,6 @@ describe('Request Class', function () {
   it('Should return a 200 with an array 5 items', () => rc.getBatch(batch).then((results) => {
     expect(results).to.be.a('array');
     expect(results.length).to.equal(5);
-    console.log(results);
-    expect(results.every(i => typeof i === 'string')).to.equal(true);
   }));
 
 });

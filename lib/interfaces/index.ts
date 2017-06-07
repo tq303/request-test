@@ -20,7 +20,6 @@ interface LatLong {
 }
 
 interface RequestFormat {
-  format(r: SunRiseSetResponse): any;
   postFormat(r: any): any;
 }
 

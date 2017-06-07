@@ -26,12 +26,17 @@ export default class RequestClass {
   }
 
   async reduce() {
+
+    console.log('requesting all coordinates');
+
     try {
 
       while (this.coordinates.length > 0) {
-        const batch = await this.getBatch(this.coordinates.splice(0, this.batchSize)).then;
-        batch(r => new Promise(resolve => setTimeout(resolve(this.results.concat(...r)), this.timeout)));
+        await this.getBatch(this.coordinates.splice(0, this.batchSize)).then(r => new Promise(resolve => setTimeout(resolve(this.results.push(...r)), this.timeout)));
+        console.log(`retrieved ${this.results.length}`);
       }
+
+      console.log('formatting results');
 
       return this.rf.postFormat(this.results);
 
@@ -45,8 +50,7 @@ export default class RequestClass {
       url: this.baseUrl,
       qs: coords,
       json: true
-    })
-    .then(this.rf.format);
+    });
   }
 
 };
