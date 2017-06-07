@@ -48,6 +48,7 @@ npm test
 
 ## TODO
 
+- make demo requests run using async/await also
 - move constants out of interface file
 - finalize sort function to longest day_length
 - move coordinates array to RequestFormat interface
