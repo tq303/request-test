@@ -2,16 +2,9 @@ import 'mocha';
 import { expect } from 'chai';
 
 import requestClass from 'lib/request-class';
-import { RequestFormat, LatLong } from 'lib/interfaces';
-import * as moment from 'moment';
+import { EarliestSurniseDayLength, LatLong } from 'lib/interfaces';
 
-const SunriseFormat: RequestFormat = {
-  postFormat: (results) => results.sort((a, b) => {
-    return moment(a.results.sunrise, 'hh:mm:ss A').valueOf() - moment(b.results.sunrise, 'hh:mm:ss A').valueOf();
-  }).map(r => r.results.daylength)[0]
-};
-
-const rc = new requestClass(SunriseFormat);
+const rc = new requestClass(EarliestSurniseDayLength);
 
 describe('Request Class', function () {
 
@@ -28,6 +21,7 @@ describe('Request Class', function () {
   it('Should return a 200 with an array 5 items', () => rc.getBatch(batch).then((results) => {
     expect(results).to.be.a('array');
     expect(results.length).to.equal(5);
+    console.log(results);
   }));
 
 });

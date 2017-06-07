@@ -38,7 +38,7 @@ export default class RequestClass {
 
       console.log('formatting results');
 
-      return this.rf.postFormat(this.results);
+      return this.rf.format(this.results);
 
     } catch(e) {
       return e;
@@ -48,9 +48,13 @@ export default class RequestClass {
   async get(coords: LatLong): Promise<any> {
     return request({
       url: this.baseUrl,
-      qs: coords,
+      qs: {
+        ...coords,
+        formatted: 0
+      },
       json: true
-    });
+    })
+    .then((r) => { r.coords = coords; return r });
   }
 
 };

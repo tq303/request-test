@@ -1,4 +1,6 @@
- interface SunRiseSetResponse {
+import * as moment from 'moment';
+
+interface SunRiseSetResponse {
   results: {
     sunrise: string
     sunset: string
@@ -19,12 +21,32 @@ interface LatLong {
   lng: number
 }
 
-interface RequestFormat {
-  postFormat(r: any): any;
+interface RequestFormatFn {
+  (r: Array<SunRiseSetResponse>): any
 }
+
+interface RequestFormat {
+  format: RequestFormatFn;
+}
+
+/*
+ * Sorts list by earliest sunrise, then returns the daylength of the earliest
+ */
+const EarliestSurniseDayLengthSortFn = (results) => results.sort((a, b) => {
+  return moment(a, 'hh:mm:ss A').valueOf() - moment(b, 'hh:mm:ss A').valueOf();
+}).map(r => r.results.day_length)[0];
+
+const EarliestSurniseDayLength: RequestFormat = {
+  format: EarliestSurniseDayLengthSortFn
+};
+
+/*
+ * 
+ */
 
 export {
   RequestFormat,
   SunRiseSetResponse,
   LatLong,
+  EarliestSurniseDayLength
 };
