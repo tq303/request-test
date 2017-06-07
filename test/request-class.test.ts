@@ -2,7 +2,8 @@ import 'mocha';
 import { expect } from 'chai';
 
 import requestClass from 'lib/request-class';
-import { EarliestSurniseDayLength, LatLong } from 'lib/interfaces';
+import { LatLong } from 'lib/interfaces';
+import { EarliestSurniseDayLength } from 'lib/constants';
 
 const rc = new requestClass(EarliestSurniseDayLength);
 

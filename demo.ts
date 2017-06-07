@@ -1,11 +1,17 @@
 import requestClass from 'lib/request-class';
-import { EarliestSurniseDayLength, LongestDayInRange } from 'lib/interfaces';
-import * as moment from 'moment';
+import { EarliestSurniseDayLength, LongestDayInRange } from 'lib/constants';
 
-const daylengthRequest = new requestClass(EarliestSurniseDayLength);
 
-daylengthRequest.reduce();
+async function demoResults() {
+  const daylengthRequest = new requestClass(EarliestSurniseDayLength);
+  const daylength = await daylengthRequest.reduce();
 
-const optimalWindAreaWithinLatLongRange = new requestClass(LongestDayInRange);
+  console.log(`Day length for earliest sunset: "${daylength}"" seconds`);
 
-optimalWindAreaWithinLatLongRange.reduce();
+  const longestDayInRange = new requestClass(LongestDayInRange);
+  const longestDay = await longestDayInRange.reduce();
+
+  console.log(`Longest day in range: "${longestDay}" seconds`);
+}
+
+demoResults();
