@@ -2,7 +2,7 @@ import * as request from 'request-promise-native';
 
 import randomCoordinates from 'lib/random-coordinates';
 
-import { LatLong } from 'lib/interfaces';
+import { LatLong, SunRiseSetResponse, RequestFormat } from 'lib/interfaces';
 
 export default class RequestClass {
 
@@ -10,43 +10,43 @@ export default class RequestClass {
   timeout: number = 5000
   baseUrl: string = 'https://api.sunrise-sunset.org/json'
   coordinates: Array<LatLong>
+  rf: RequestFormat
+  results: Array<any> = []
 
-  constructor() {
+  constructor(rf: RequestFormat) {
     const rc = new randomCoordinates();
 
     this.coordinates = rc.coords;
+
+    this.rf = rf;
   }
 
-  async getBatch() {
-    return await this.parallelRequest(this.coordinates.splice(0, this.batchSize));
+  getBatch(batch: Array<LatLong>): Promise<SunRiseSetResponse[]> {
+    return Promise.all(batch.map((c) => this.get(c)));
   }
 
   async reduce() {
     try {
 
       while (this.coordinates.length > 0) {
-        return await this.getBatch().then(r => new Promise<any[]>(resolve => setTimeout(resolve(r), this.timeout)));
+        const batch = await this.getBatch(this.coordinates.splice(0, this.batchSize)).then;
+        batch(r => new Promise(resolve => setTimeout(resolve(this.results.concat(...r)), this.timeout)));
       }
+
+      return this.rf.postFormat(this.results);
 
     } catch(e) {
       return e;
     }
   }
 
-  async get(coords) {
+  async get(coords: LatLong): Promise<any> {
     return request({
       url: this.baseUrl,
       qs: coords,
       json: true
-    }).then(this.returnFormat);
-  }
-
-  parallelRequest(coords: Array<LatLong>): Promise<any[]> {
-    return Promise.all(coords.map(r => this.get(r)));
-  }
-
-  returnFormat(r: any): string {
-    return r.results.sunrise;
+    })
+    .then(this.rf.format);
   }
 
 };

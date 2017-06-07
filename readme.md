@@ -14,6 +14,14 @@ npm install -g serverless webpack ts-node typescript
 npm install
 ```
 
+## Demo
+
+To run the demo run the following.
+
+```
+node run demo
+```
+
 ## Serverless
 
 I have included a [serverless]() lambda stack example to show how typescript can be useful for creating lambda functions. However due to the purpose of the test needing delayed requests, lambdas aren't really ideal for this, unless using persistance of some kind. Setting this up wouldn't be too difficult either but I have given an example of a batch request of 5 to demonstrate how _interfaces_ are useful for the lambda parameters.

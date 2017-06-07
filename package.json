@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "http-status-codes": "^1.1.6",
+    "moment": "^2.18.1",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4"
   }
