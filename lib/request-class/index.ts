@@ -2,7 +2,7 @@ import * as request from 'request-promise-native';
 
 import randomCoordinates from 'lib/random-coordinates';
 
-import { LatLong, SunRiseSetResponse, RequestFormat } from 'lib/interfaces';
+import { LatLong, SunRiseSetResponse, RequestFormat, FormattedResponse } from 'lib/interfaces';
 
 export default class RequestClass {
 
@@ -38,14 +38,14 @@ export default class RequestClass {
 
       console.log('formatting results');
 
-      return this.rf.format(this.results);
+      return this.rf.sortResponse(this.results);
 
     } catch(e) {
-      return e;
+      return new Error(e.message);
     }
   }
 
-  async get(coords: LatLong): Promise<any> {
+  async get(coords: LatLong): Promise<FormattedResponse> {
     return request({
       url: this.baseUrl,
       qs: {
@@ -54,7 +54,7 @@ export default class RequestClass {
       },
       json: true
     })
-    .then((r) => { r.coords = coords; return r });
+    .then((r) => { r.coords = coords; return r }); // append coords to response
   }
 
 };

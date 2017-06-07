@@ -16,6 +16,10 @@ interface SunRiseSetResponse {
   status: string;
 }
 
+interface FormattedResponse extends SunRiseSetResponse {
+  coords: Array<LatLong>
+}
+
 interface LatLong {
   lat: number
   lng: number
@@ -26,27 +30,36 @@ interface RequestFormatFn {
 }
 
 interface RequestFormat {
-  format: RequestFormatFn;
+  sortResponse: RequestFormatFn;
 }
 
 /*
  * Sorts list by earliest sunrise, then returns the daylength of the earliest
  */
 const EarliestSurniseDayLengthSortFn = (results) => results.sort((a, b) => {
-  return moment(a, 'hh:mm:ss A').valueOf() - moment(b, 'hh:mm:ss A').valueOf();
+  return moment(a).valueOf() - moment(b).valueOf();
 }).map(r => r.results.day_length)[0];
 
 const EarliestSurniseDayLength: RequestFormat = {
-  format: EarliestSurniseDayLengthSortFn
+  sortResponse: EarliestSurniseDayLengthSortFn
 };
 
 /*
- * 
+ * As wind speeds can diminish after sunset, find the longest day_length in a range of lat lng
  */
+const LongestDayLengthInRange = (results) => results.sort((a, b) => {
+  return moment(a).valueOf() - moment(b).valueOf();
+}).map(r => r.results.day_length)[0];
+
+const LongestDayInRange: RequestFormat = {
+  sortResponse: LongestDayLengthInRange
+};
 
 export {
   RequestFormat,
   SunRiseSetResponse,
   LatLong,
-  EarliestSurniseDayLength
+  EarliestSurniseDayLength,
+  LongestDayInRange,
+  FormattedResponse
 };

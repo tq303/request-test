@@ -48,5 +48,6 @@ npm test
 
 ## TODO
 
-Complete generics for return format function
-Create additional example of class extension using generics
+- move constants out of interface file
+- finalize sort function to longest day_length
+- move coordinates array to RequestFormat interface
