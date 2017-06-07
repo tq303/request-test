@@ -51,4 +51,5 @@ npm test
 - finalize sort function to longest day_length
 - move coordinates array to RequestFormat interface
 - add interfaces to lambda functions and lambda function parameters
+- extend request class from interface instead of passing as parameter
 - create example lambda tests
