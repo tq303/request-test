@@ -4,32 +4,30 @@
 
 import { LatLong } from 'lib/interfaces';
 
-class RandomCoordinates {
-
-  coords: Array<LatLong> = []
-
-  constructor() {
-    for (let i = 0; i < 100; i++) {
-      this.coords.push(this.randomCoordinates());
-    }
-  }
-
-  // build random coordinates
-  randomCoordinates(): LatLong {
-    return {
-      lat: this.randomLatitude(),
-      lng: this.randomLongitude(),
-    }
-  }
-
-  // return floating point numbers with fixed decimal count
-  randomLatitude() : number {
-    return Number((Math.random() * (-90 - 90) + 90).toFixed(5));
-  }
-
-  randomLongitude() : number {
-    return Number((Math.random() * (-180 - 180) + 180).toFixed(5));
+// build random coordinates
+function randomCoordinates(): LatLong {
+  return {
+    lat: randomLatitude(),
+    lng: randomLongitude(),
   }
 }
 
-export default RandomCoordinates;
+// return floating point numbers with fixed decimal count
+function randomLatitude() : number {
+  return Number((Math.random() * (-90 - 90) + 90).toFixed(5));
+}
+
+function randomLongitude() : number {
+  return Number((Math.random() * (-180 - 180) + 180).toFixed(5));
+}
+
+export default function(): Array<LatLong> {
+
+  const coords = [];
+
+  for (let i = 0; i < 100; i++) {
+    coords.push(randomCoordinates());
+  }
+
+  return coords;
+};

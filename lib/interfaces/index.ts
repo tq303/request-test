@@ -10,8 +10,8 @@ interface SunRiseSetResponse {
     nautical_twilight_end: string
     astronomical_twilight_begin: string
     astronomical_twilight_end: string
-  };
-  status: string;
+  }
+  status: string
 }
 
 interface FormattedResponse extends SunRiseSetResponse {
@@ -23,17 +23,28 @@ interface LatLong {
   lng: number
 }
 
-interface RequestFormatFn {
+interface ReqResFormatFn {
   (r: Array<SunRiseSetResponse>): any
 }
 
-interface RequestFormat {
-  sortResponse: RequestFormatFn;
+interface ReqResFormat {
+  batchSize: number
+  timeout: number
+  baseUrl: string
+  coordinates: Array<LatLong>
+  results: Array<SunRiseSetResponse>
+  sortResponse: ReqResFormatFn
+}
+
+interface MinMax {
+  min: number,
+  max: number
 }
 
 export {
-  RequestFormat,
+  ReqResFormat,
   SunRiseSetResponse,
   LatLong,  
-  FormattedResponse
+  FormattedResponse,
+  MinMax,
 };

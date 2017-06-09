@@ -1,27 +1,17 @@
 import * as request from 'request-promise-native';
 
-import randomCoordinates from 'lib/random-coordinates';
-
-import { LatLong, SunRiseSetResponse, RequestFormat, FormattedResponse } from 'lib/interfaces';
+import { LatLong, FormattedResponse, ReqResFormat } from 'lib/interfaces';
+import { LongestDayInRange } from 'lib/constants';
 
 export default class RequestClass {
 
-  batchSize: number = 5
-  timeout: number = 5000
-  baseUrl: string = 'https://api.sunrise-sunset.org/json'
-  coordinates: Array<LatLong>
-  rf: RequestFormat
-  results: Array<any> = []
+  rf: ReqResFormat
 
-  constructor(rf: RequestFormat) {
-    const rc = new randomCoordinates();
-
-    this.coordinates = rc.coords;
-
+  constructor(rf: ReqResFormat) {
     this.rf = rf;
   }
 
-  getBatch(batch: Array<LatLong>): Promise<SunRiseSetResponse[]> {
+  getBatch(batch: Array<LatLong>): Promise<FormattedResponse[]> {
     return Promise.all(batch.map((c) => this.get(c)));
   }
 
@@ -31,14 +21,17 @@ export default class RequestClass {
 
     try {
 
-      while (this.coordinates.length > 0) {
-        await this.getBatch(this.coordinates.splice(0, this.batchSize)).then(r => new Promise(resolve => setTimeout(resolve(this.results.push(...r)), this.timeout)));
-        console.log(`retrieved ${this.results.length}`);
+      while (this.rf.coordinates.length > 0) {
+
+        await this.getBatch(this.rf.coordinates.splice(0, this.rf.batchSize))
+                  .then(r => new Promise(resolve => setTimeout(resolve(this.rf.results.push(...r)), this.rf.timeout)));
+
+        console.log(`retrieved ${this.rf.results.length}`);
       }
 
       console.log('formatting results');
 
-      return this.rf.sortResponse(this.results);
+      return this.rf.sortResponse(this.rf.results);
 
     } catch(e) {
       return new Error(e.message);
@@ -47,7 +40,7 @@ export default class RequestClass {
 
   async get(coords: LatLong): Promise<FormattedResponse> {
     return request({
-      url: this.baseUrl,
+      url: this.rf.baseUrl,
       qs: {
         ...coords,
         formatted: 0
